@@ -2,7 +2,6 @@ from flask import Flask, render_template, redirect, request
 from flask_scss import Scss
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import os
 
 app = Flask(__name__)
 Scss(app)
@@ -20,11 +19,12 @@ class MyTask(db.Model):
     created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self) -> str:
-        return f"<Task {self.id}>"
+        return f"Task {self.id}"
 
 
 with app.app_context():
     db.create_all()  # Ensure the table is created
+
 
 # Home Page
 @app.route('/', methods=['GET', 'POST'])
@@ -74,9 +74,5 @@ def update(id:int):
         return render_template('edit.html', task=task)
 
 
-@app.route('/testing')
-def testing():
-    return render_template('testing.html')
-
-
-app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
