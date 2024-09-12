@@ -5,12 +5,14 @@
 {%  block body %}
 <div class='contents'>
         <h1>Edit Your Task</h1>
-        <form action="/edit/{{ task.id }}" method="POST">
+        <form action="/edit-my-task/{{ task.id }}" method="POST">
             <input type="text"
                    name="content"
                    id="content"
                    value="{{task.content}}"
             />
+            <label for="due_date">Due Date</label>
+            <input type="date" name="due_date" id="due_date" value="{{task.due_date.strftime('%Y-%m-%d')}}">
             <input type="submit" value="Edit" />
         </form>
 </div>
