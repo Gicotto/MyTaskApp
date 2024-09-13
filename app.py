@@ -76,6 +76,7 @@ class Financial(db.Model):
     def __repr__(self) -> str:
         return f"Financial {self.id}"
 
+# change when you want to create the database
 with app.app_context():
     db.create_all()  # Ensure the table is created
 
