@@ -4,12 +4,33 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-<h1>This is the landing page for my web app projects.</h1>
-    <p>Navigate using the navigation bar at the top of the page or using <br>
-    the hypertext links below.
+<div class="center-content">
+    <h1>Company Intranet Web Apps Access</h1>
+    <p>Navigate using the navigation bar at the top of the page or hover <br>
+    over the following images to access specific pages. Only users with <br>
+    the appropriate roles will be able to access certain pages.
     </p>
-    <ul>
-        <li><a href="/finance">Finance Tables</a></li>
-        <li><a href="/my-tasks">My Tasks</a></li>
+    <ul class="home-list">
+        {% if current_user.is_authenticated %}
+            {% for role in current_user.roles %}
+                {% if role.name == 'accounting' %}
+                    <li class="hover-item">
+                        <a href="/finance">
+                            <img src="{{ url_for('static', filename='images/bank.jpg') }}" alt="Finance" class="hover-image">
+                            <span class="hover-text">Finance Tables</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if role.name == 'management' %}
+                    <li class="hover-item">
+                        <a href="/my-tasks">
+                            <img src="{{ url_for('static', filename='images/checklist.jpg') }}" alt="My Tasks" class="hover-image">
+                            <span class="hover-text">My Tasks</span>
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </ul>
+</div>
 {% endblock %}

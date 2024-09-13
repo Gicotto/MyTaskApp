@@ -1,0 +1,29 @@
+<!-- templates/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <nav>
+    <h1>Register</h1>
+    <form method="POST" action="/register">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <label for="roles">Roles:</label><br>
+        {% for role in roles %}
+            <input type="checkbox" id="role_{{ role.id }}" name="roles" value="{{ role.name }}">
+            <label for="role_{{ role.id }}">{{ role.name }}</label><br>
+        {% endfor %}
+
+        <button type="submit">Register</button>
+    </form>
+    </nav>
+</body>
+</html>

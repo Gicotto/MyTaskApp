@@ -12,9 +12,31 @@
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/my-tasks">My Tasks</a></li>
-            <li><a href="/finance">Finances</a></li>
+            {% if current_user.is_authenticated %}
+                {% for role in current_user.roles %}
+                    {% if role.name == 'management' %}
+                        <li><a href="/my-tasks">My Tasks</a></li>
+                    {% endif %}
+                    {% if role.name == 'accounting' %}
+                        <li><a href="/finance">Finances</a></li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         </ul>
+        <div class="nav-middle">
+            <h1>Company Intranet Web Apps Access</h1>
+        </div>
+        <div class="nav-right">
+        <ul>
+            {% if current_user.is_authenticated %}
+                <li><a>Currently Signed In: {{current_user.username}}</a></li>
+                <li><a href="/logout">Log out</a></li>
+            {% else %}
+                <li><a href="/login">Log in</a></li>
+                <li><a href="/register">Register</a></li>
+            {% endif %}
+        </ul>
+        </div>
     </nav>
     {% block body %}{% endblock %}
 </body>
